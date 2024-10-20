@@ -3,7 +3,7 @@
 	"package": "com.anon987666.ipd.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"ContainerScreenMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
