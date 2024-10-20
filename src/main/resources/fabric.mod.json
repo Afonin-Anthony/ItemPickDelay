@@ -3,15 +3,15 @@
 	"id": "itempickdelay",
 	"version": "${version}",
 	"name": "ItemPickDelay",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Measures and display timings between taking items from the chest",
 	"authors": [
-		"Me!"
+		"Anthony Afonin aka anon987666"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/Afonin-Anthony/ItemPickDelay",
+		"sources": "https://github.com/Afonin-Anthony/ItemPickDelay"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/itempickdelay/icon.png",
 	"environment": "*",
 	"entrypoints": {
