@@ -26,40 +26,39 @@ package com.anon987666.ipd.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.GenericContainerScreen;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.GenericContainerScreenHandler;
-import net.minecraft.text.Text;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.slot.SlotActionType;
 
-public final class ContainerScreenEvents {
+public final class ScreenHandlerEvents {
 
-	public static final Event<PostRender> POST_RENDER = EventFactory.createArrayBacked(PostRender.class,
-			callbacks -> (screen, context, mouseX, mouseY, delta) -> {
-				for (PostRender callback : callbacks) {
-					callback.onPostRender(screen, context, mouseX, mouseY, delta);
+	public static final Event<InsertStackHandler> SET_STACK_IN_SLOT = EventFactory
+			.createArrayBacked(InsertStackHandler.class, callbacks -> (handler, slot, revision, stack) -> {
+				for (InsertStackHandler callback : callbacks) {
+					callback.onSetStackInSlot(handler, slot, revision, stack);
 				}
 			});
 
-	public static final Event<Init> INIT = EventFactory.createArrayBacked(Init.class,
-			callbacks -> (screen, handler, inventory, text) -> {
-				for (Init callback : callbacks) {
-					callback.onInit(screen, handler, inventory, text);
+	public static final Event<SlotClickHandler> ON_SLOT_CLICK = EventFactory.createArrayBacked(SlotClickHandler.class,
+			callbacks -> (handler, slotIndex, button, actionType, player) -> {
+				for (SlotClickHandler callback : callbacks) {
+					callback.onSlotClick(handler, slotIndex, button, actionType, player);
 				}
 			});
 
 	@FunctionalInterface
-	public interface PostRender {
-		void onPostRender(GenericContainerScreen screen, DrawContext context, int mouseX, int mouseY, float delta);
+	public interface SlotClickHandler {
+		void onSlotClick(ScreenHandler handler, int slotIndex, int button, SlotActionType actionType,
+				PlayerEntity player);
 	}
 
 	@FunctionalInterface
-	public interface Init {
-		void onInit(GenericContainerScreen screen, GenericContainerScreenHandler handler, PlayerInventory inventory,
-				Text title);
+	public interface InsertStackHandler {
+		void onSetStackInSlot(ScreenHandler handler, int slot, int revision, ItemStack stack);
 	}
 
-	private ContainerScreenEvents() {
-		throw new AssertionError("No ContainerScreenEvents instances for you!");
+	private ScreenHandlerEvents() {
+		throw new AssertionError("No ScreenHandlerEvents instances for you!");
 	}
 }
